@@ -20,7 +20,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
  *         automatizado E2E, o qual realiza uma pesquisa no google
  */
 
-public class Principal {
+public class PrincipalTest {
 	public WebDriver driver;
 
 	// a anotation Before é utilizada para realizar ações antes dos testes serem
