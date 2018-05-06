@@ -1,8 +1,10 @@
 package devtestsselenium;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -21,24 +23,39 @@ import org.openqa.selenium.chrome.ChromeOptions;
  */
 
 public class PrincipalTest {
-	public WebDriver driver;
+	private WebDriver driver;
 
-	// a anotation Before é utilizada para realizar ações antes dos testes serem
-	// executados
+	// a annotation BeforeClass é realiza ações gerais antes da inicialização da classe de testes
+	// é utilizada para configurações que são comuns a todos os testes da classe
+	// geralmente ações de configuração como o Setup do WebDriveManager a seguir
+	@BeforeClass
+	public static void setupClass() {
+		WebDriverManager.chromedriver().setup();
+	}
+
+	// a anotation Before é utilizada para realizar ações antes da execução do teste
 	@Before
 	public void before() {
 		// aqui 'setamos' a proprieadade para indicar onde esta o driver
-		System.setProperty("webdriver.chrome.driver", "/home/usuario/Documentos/DriverForSelenium/chromedriver");
+		// (agora executada pelo WebDriveManager)
+		// System.setProperty("webdriver.chrome.driver", "/home/usuario/Documentos/DriverForSelenium/chromedriver");
 
 		// aqui criamos as opcoes para o chromedriver
 		ChromeOptions options = new ChromeOptions();
 
-		// entao adicionamos um argumento para executar os testes no modo headless
-		// ou seja o navegador nao ira aparecer na tela
-		options.addArguments("--headless");
+		// então adicionamos um argumento para executar os testes no modo headless
+		// ou seja o navegador não irá aparecer na tela
+		// options.addArguments("--headless");
 
 		// criamos um novo driver
 		driver = new ChromeDriver(options);
+	}
+
+	// a annotation After serve para realizar ações após a execução do teste
+	@After
+	public void after() {
+		// aqui nós fechamos o nosso driver
+		driver.quit();
 	}
 
 	// a anotation Test é utilizada para os testes que serão executados
@@ -77,12 +94,5 @@ public class PrincipalTest {
 		// porem como este é nosso primeiro teste automatizado vamos utiliza-lo, mais
 		// para frente aprenderemos como usar WebDriverWait
 		// Thread.sleep(5000);
-	}
-
-	// a anotation After, serve para realizar uma ação após a execução do teste
-	@After
-	public void after() {
-		// aqui nos fechamos o nosso driver
-		driver.quit();
 	}
 }
