@@ -12,16 +12,16 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import static org.junit.Assert.assertTrue;
 
 public class BuscadorSteps {
-    private static WebDriver driver;
+    private WebDriver driver;
 
     @BeforeStory
-    public static void setupClass() {
+    public void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 
 
     @BeforeScenario
-    public static void before() {
+    public void before() {
         ChromeOptions options = new ChromeOptions();
 
         // options.addArguments("--headless");
@@ -29,7 +29,7 @@ public class BuscadorSteps {
     }
 
     @AfterScenario
-    public static void after() {
+    public void after() {
         if (driver != null) {
             driver.quit();
         }

@@ -1,21 +1,18 @@
 package jbehave.configuration;
 
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.github.valfirst.jbehave.junit.monitoring.JUnitReportingRunner;
+import jbehave.steps.BuscadorSteps;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
 import org.jbehave.core.io.CodeLocations;
-import org.jbehave.core.io.LoadFromClasspath;
 import org.jbehave.core.io.StoryFinder;
 import org.jbehave.core.junit.JUnitStories;
-import org.jbehave.core.reporters.Format;
-import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
-import org.jbehave.core.steps.ScanningStepsFactory;
+import org.jbehave.core.steps.InstanceStepsFactory;
 import org.junit.runner.RunWith;
+
+import java.util.List;
 
 /**
  * generic binder for all JBehave tests. Binds all the story files to the
@@ -28,32 +25,26 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitReportingRunner.class)
 public class JBehaveRunnerTest extends JUnitStories {
 
-    @Override
-    public Configuration configuration() {
-        return new MostUsefulConfiguration()
-            .useStoryLoader(
-                new LoadFromClasspath(this.getClass().getClassLoader()))
-            .useStoryReporterBuilder(
-                new StoryReporterBuilder()
-                    .withDefaultFormats()
-                    .withFormats(Format.HTML, Format.CONSOLE)
-                    .withRelativeDirectory("jbehave-report")
-            );
+    private Configuration configuration;
+
+    public JBehaveRunnerTest() {
+        configuration = new MostUsefulConfiguration();
     }
 
+    @Override
+    public Configuration configuration() {
+        return configuration;
+    }
+
+    @Override
     public InjectableStepsFactory stepsFactory() {
-        return new ScanningStepsFactory(configuration(), "jbehave.steps")
-            .matchingNames(".*Steps")
-            .notMatchingNames(".*SkipSteps");
+        return new InstanceStepsFactory(configuration(), new BuscadorSteps());
     }
 
     @Override
     protected List<String> storyPaths() {
-        return new StoryFinder().
-            findPaths(CodeLocations.codeLocationFromClass(
-                this.getClass()),
-                Arrays.asList("**/*.story"),
-                Arrays.asList(""));
+        return new StoryFinder()
+            .findPaths(CodeLocations.codeLocationFromClass(this.getClass()),"**/*.story","");
     }
 
 }
