@@ -58,41 +58,15 @@ public class PrincipalTest {
 		driver.quit();
 	}
 
-	// a anotation Test é utilizada para os testes que serão executados
 	@Test
-	public void teste() throws InterruptedException {
-		// aqui 'dizemos' ao driver qual página web queremos acessar
+	public void conseguimosAcessarUmBuscadorEEncontrarUmaPagina() {
+		// Vamos acessar uma página de busca 'https://www.google.com'
 		driver.get("https://www.google.com");
 
-		// aqui vamos fazer com que o driver preencha o campo de busca do google.
-		// para encontrar as propriedades dos elemento no tela, clicamos nele com o
-		// botão direito do mouse
-		// e selecionamos a opção 'inspecionar elemento'
-		// então, procuramos o elemento cuja propriedade 'name' seja igual a 'q'
-		// e fazemos com que o driver digite 'selenium' e 'pressione' a tecla ENTER
+		// usamos o campo de busca para procurar por 'selenium'
 		driver.findElement(By.name("q")).sendKeys("selenium", Keys.ENTER);
 
-		// neste trecho comentado, demonatramos varias maneiras de clicar em elementos
-		// na pagina web
-		/*
-		 * driver.findElement(By.xpath("//*[@id=\"hdtb-msb-vis\"]/div[2]/a")).click();
-		 * driver.findElement(By.linkText("Selenium - Web Browser Auto	mation")).click(
-		 * ); driver.findElement(By.partialLinkText("Selenium")).click();
-		 * driver.findElement(By.cssSelector("#hdtb-msb-vis > div:nth-child(2) > a")).
-		 * click();
-		 */
-
-		// utilizamos o Assert.assertTrue, para fazer uma verificação de verdadeiro ou
-		// falso
-		// 'pedimos' ao driver que verifique se existe algum link com o texto especifico
-		// caso sim ele retornara True(verdadeiro), senão False (Falso)
-		// com isso o junit 'saberá' se o teste falhou ou não
+		// conseguimos encontrar uma página como 'Selenium - Web Browser Automation'
 		Assert.assertTrue(driver.findElement(By.linkText("Selenium - Web Browser Automation")).isDisplayed());
-
-		// o thread.sleep, não é a melhor opção para fazer o driver esperar um
-		// determinado tempo para realizar uma ação
-		// porem como este é nosso primeiro teste automatizado vamos utiliza-lo, mais
-		// para frente aprenderemos como usar WebDriverWait
-		// Thread.sleep(5000);
 	}
 }
