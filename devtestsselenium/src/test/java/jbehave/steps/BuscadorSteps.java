@@ -13,13 +13,13 @@ import static org.junit.Assert.assertTrue;
 public class BuscadorSteps {
     private WebDriver driver;
 
-    @BeforeScenario
+    @BeforeStory
     public void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 
 
-    @BeforeStory
+    @BeforeScenario
     public void before() {
         ChromeOptions options = new ChromeOptions();
 
@@ -27,7 +27,7 @@ public class BuscadorSteps {
         driver = new ChromeDriver(options);
     }
 
-    @AfterStory
+    @AfterScenario
     public void after() {
         driver.quit();
     }
