@@ -30,7 +30,9 @@ public class BuscadorSteps {
 
     @AfterScenario
     public static void after() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     @Given("uma página de busca $url")
@@ -38,14 +40,16 @@ public class BuscadorSteps {
         driver.get(urlPagina);
     }
 
-    @When("usamos o campo de busca para procurar por '$texto'")
-    public void buscarPor(String texto) {
-        driver.findElement(By.name("q"))
+    @When("usamos o campo de busca $nome para procurar por '$texto'")
+    public void buscarPor(String nomeInput, String texto) {
+        driver.findElement(By.name(nomeInput))
               .sendKeys(texto, Keys.ENTER);
     }
 
     @Then("conseguimos encontrar uma página como '$tituloPagina'")
     public void verificarResultado(String tituloPagina) {
-        assertTrue(driver.findElement(By.linkText(tituloPagina)).isDisplayed());
+        final WebElement element = driver.findElement(By.partialLinkText(tituloPagina));
+        assertTrue(element.isDisplayed());
+        System.out.println("Texto do link: " + element.getText());
     }
 }
