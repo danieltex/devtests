@@ -20,6 +20,6 @@ public class JBehaveRunner extends JUnitStories {
 
     @Override
     public InjectableStepsFactory stepsFactory() {
-        return new ScanningStepsFactory(configuration(), "jbehave.stories").matchingNames(".*Steps");
+        return new ScanningStepsFactory(configuration(), "jbehave.steps").matchingNames(".*Steps");
     }
 }
