@@ -1,4 +1,4 @@
-package steps;
+package jbehave.steps;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.jbehave.core.annotations.*;
