@@ -19,13 +19,12 @@ import org.junit.runner.RunWith;
 
 /**
  * generic binder for all JBehave tests. Binds all the story files to the
- * step files. works for both Eclipse and Maven command line build. *
+ * step files. works for both Eclipse and Maven command line build.
+ *
+ * (Copiado de <a href="https://stackoverflow.com/questions/20733703/very-simple-step-by-step-jbehave-setup-tutorial">JBehave Runner Genérico</a>)
+ *
  * @author funktapuss
- *
- * Copiado de <a href="https://stackoverflow.com/questions/20733703/very-simple-step-by-step-jbehave-setup-tutorial">JBehave Runner Genérico</a>
- *
  */
-
 @RunWith(JUnitReportingRunner.class)
 public class JBehaveRunnerTest extends JUnitStories {
 

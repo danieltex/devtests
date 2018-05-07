@@ -5,22 +5,23 @@ import org.jbehave.core.annotations.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.Assert.assertTrue;
 
 public class BuscadorSteps {
-    private WebDriver driver;
+    private static WebDriver driver;
 
     @BeforeStory
-    public void setupClass() {
+    public static void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
 
 
     @BeforeScenario
-    public void before() {
+    public static void before() {
         ChromeOptions options = new ChromeOptions();
 
         // options.addArguments("--headless");
@@ -28,7 +29,7 @@ public class BuscadorSteps {
     }
 
     @AfterScenario
-    public void after() {
+    public static void after() {
         driver.quit();
     }
 
